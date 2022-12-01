@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Item
-from .forms import itemForm
+from .forms import ItemForm
 
 
 def get_todo_list(request):
@@ -17,7 +17,7 @@ def add_item(request):
         if form.is_valid():
             form.save()
             return redirect('get_todo_list')
-    form = itemForm()
+    form = ItemForm()
     context = {
         'form': form
     }
@@ -27,11 +27,11 @@ def add_item(request):
 def edit_item(request, item_id):
     item = get_object_or_404(Item, id=item_id)
     if request.method == 'POST':
-        form = itemForm(request.POST, instance=item)
+        form = ItemForm(request.POST, instance=item)
         if form.is_valid():
             form.save()
             return redirect('get_todo_list')
-    form = itemForm(instance=item)
+    form = ItemForm(instance=item)
     context = {
         'form': form
     }
